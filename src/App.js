@@ -7,6 +7,8 @@ import {
 
 import Login from './pages/Login';
 import Register from './pages/Register';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
@@ -17,7 +19,11 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Login />} />
-      <Route path='/register' element={<Register />} />
+      <Route path='/register' element={
+        <ProtectedRoute>
+          <Register />
+        </ProtectedRoute>
+      } />
     </Routes>
   );
 }

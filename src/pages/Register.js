@@ -1,8 +1,13 @@
 import React from 'react'
+import { useAuthUser } from '../context/AuthUser'
 
 const Register = () => {
+
+    const { logout } = useAuthUser();
+    const toLogout = () => logout();
+
     return (
-        <div>Register</div>
+        <div><button onClick={toLogout}>Logout</button></div>
     )
 }
 
