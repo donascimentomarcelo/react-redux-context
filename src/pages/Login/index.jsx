@@ -22,7 +22,9 @@ import {
 
 export const Login = () => {
   const navigate = useNavigate();
+
   const { login } = useAuthUser();
+  
   const {
     register,
     handleSubmit,

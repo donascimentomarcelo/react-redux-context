@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LoginForm = styled.form`
+export const ProfileForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -9,13 +9,13 @@ export const LoginForm = styled.form`
   width: 70%;
 `;
 
-export const LoginFormTitle = styled.h1`
+export const ProfileFormTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: bold;
   align-self: start;
 `;
 
-export const LoginInputsContainer = styled.div`
+export const ProfileInputsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,7 @@ export const LoginInputsContainer = styled.div`
 `;
 
 export const ContainerInput = styled.div`
-  display: flex;
+display: flex;
   flex-direction: column;
   align-self: flex-start;
   height: 80px;
@@ -33,8 +33,7 @@ export const ContainerInput = styled.div`
 
   span {
     color: #f00;
-  }
-`;
+  }`;
 
 export const Input = styled.input`
   height: 3rem;
@@ -77,32 +76,4 @@ export const FormButton = styled.button`
     background-color: #0693e3;
     border-color: #0693e3;
   }
-`;
-
-export const LoginHeroContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  height: 450px;
-  width: 100%;
-`;
-
-export const LoginHeroTitle = styled.h1`
-  color: #fff;
-  font-size: 3rem;
-  font-weight: bold;
-  letter-spacing: 0.2rem;
-`;
-
-export const LoginHeroLogo = styled.img`
-  height: 70px;
-  width: auto;
-  resize: cover;
-`;
-
-export const LoginHeroText = styled.p`
-  color: #fff;
-  font-size: 1.5rem;
-  width: 250px;
 `;
