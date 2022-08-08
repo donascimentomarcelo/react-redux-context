@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useAuthUser } from "../../context/AuthUser";
+import { useAuthUser } from "../../hooks/AuthUser";
 import { MainContainer } from "../../components/MainContainer";
 import { SectionContainer } from "../../components/SectionContainer";
 
