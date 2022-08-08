@@ -50,6 +50,7 @@ export const Login = () => {
                 inputName="username"
                 placeholder="Username"
                 error={!!errors}
+                data-testid="email"
                 {...register("username", { required: "Informe o username" })}
               />
               <ErrorMessage as="span" errors={errors} name="username" />
@@ -62,9 +63,14 @@ export const Login = () => {
                 inputName="password"
                 placeholder="Password"
                 error={!!errors}
+                data-testid="password"
                 {...register("password", { required: "Informe a password" })}
               />
-              <ErrorMessage as="span" errors={errors} name="password" />
+              <ErrorMessage 
+                as="span" 
+                errors={errors} 
+                name="password"
+                data-testid="password-error-message" />
             </ContainerInput>
           </LoginInputsContainer>
 
