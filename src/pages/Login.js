@@ -35,6 +35,7 @@ const Login = () => {
                         className={`form-control ${errors.email && 'is-invalid'}`}
                         id="email"
                         aria-describedby="emailHelp"
+                        data-testid="email"
                         {...register("email", { required: 'Informe o E-mail' })} />
                     {errors.email && <span className="invalid-feedback">{errors.email.message}</span>}
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
@@ -45,6 +46,7 @@ const Login = () => {
                         type="password"
                         className={`form-control ${errors.password && 'is-invalid'}`}
                         id="password"
+                        data-testid="password"
                         {...register("password", { required: 'Informe a senha' })} />
                     {errors.password && <span className="invalid-feedback">{errors.password.message}</span>}
                 </div>
