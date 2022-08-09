@@ -1,7 +1,7 @@
 
 import { createContext, useState, useContext } from 'react';
 
-const ImageUserContext = createContext({});
+export const ImageUserContext = createContext({});
 
 export const ImageUserProvider = ({ children }) => {
     const [image, setImage] = useState({ url: "/images/user-unknown.png" });
@@ -13,13 +13,4 @@ export const ImageUserProvider = ({ children }) => {
             {children}
         </ImageUserContext.Provider>
     );
-};
-
-export const useImageUser = () => {
-    const { image, updateImage } = useContext(ImageUserContext);
-
-    return {
-        image,
-        updateImage
-    };
 };

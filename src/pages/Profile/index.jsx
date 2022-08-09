@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useAuthUser } from "../../hooks/AuthUser";
-import { useImageUser } from "../../context/ImageUser";
+import { useAuthUser } from './../../hooks/useAuthUser';
+import { useImageUser } from "./../../hooks/useImageUser";
 import { MainContainer } from "../../components/MainContainer";
 import { SectionContainer } from "../../components/SectionContainer";
 
