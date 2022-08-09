@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { Profile } from "./pages/Profile";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ImageUserProvider } from './context/ImageUser';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
         path="/profile"
         element={
           <ProtectedRoute>
-            <Profile />
+            <ImageUserProvider>
+              <Profile />
+            </ImageUserProvider>
           </ProtectedRoute>
         }
       />

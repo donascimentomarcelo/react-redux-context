@@ -50,7 +50,7 @@ export const Login = () => {
                 inputName="username"
                 placeholder="Username"
                 error={!!errors}
-                data-testid="email"
+                data-testid="username"
                 {...register("username", { required: "Informe o username" })}
               />
               <ErrorMessage as="span" errors={errors} name="username" />

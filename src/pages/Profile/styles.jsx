@@ -77,3 +77,69 @@ export const FormButton = styled.button`
     border-color: #0693e3;
   }
 `;
+
+export const Header = styled.header`
+  background-color: #0693e3;
+  color: #000;
+  height: 75px;
+  padding: 10px;
+  display: flex;
+`;
+
+export const UsernameContainer = styled.div`
+  padding: 25px;
+  font-weight: bold;
+  align-self: start;
+`;
+
+export const PhotoContainer = styled.img`
+  display: inline-block;
+  width: auto;
+  box-sizing: border-box;
+  border-radius: 50%;
+  margin-left: 18%;
+  padding: 10px;
+  height: 9vh;
+`;
+
+export const LogoutButton = styled.button`
+  margin-left: auto;
+  order: 2;
+  height: 30px;
+  margin-top: 25px;
+`;
+
+export const ImageContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InputImage = styled.input`
+  display: none;
+`;
+
+export const FileInputLabel = styled.label`
+
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  color: #000;
+  cursor: pointer;
+
+  :hover {
+    color: #999;
+  }
+`;
+
+export const UploadImage = styled.img`
+  height: 100px;
+  border-radius: 50%;
+`;

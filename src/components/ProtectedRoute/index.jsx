@@ -9,7 +9,7 @@ export const ProtectedRoute = ({ children }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user) navigate('/');
+        if (!user.username) navigate('/');
     }, [navigate, user]);
 
     return (
