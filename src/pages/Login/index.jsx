@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useAuthUser } from "../../context/AuthUser";
+import { useAuthUser } from "../../hooks/useAuthUser.js";
 import { MainContainer } from "../../components/MainContainer";
 import { SectionContainer } from "../../components/SectionContainer";
 import logo from "../../assets/images/logo.png";
@@ -24,7 +24,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const { login } = useAuthUser();
-  
+
   const {
     register,
     handleSubmit,
@@ -50,10 +50,15 @@ export const Login = () => {
                 inputName="username"
                 placeholder="Username"
                 error={!!errors}
-                data-testid="username"
-                {...register("username", { required: "Informe o username" })}
+                data-testid="email"
+                {...register("username", { required: "Informe o usuário" })}
               />
-              <ErrorMessage as="span" errors={errors} name="username" />
+              <ErrorMessage
+                data-testid="error-message-username"
+                as="span"
+                errors={errors}
+                name="username"
+              />
             </ContainerInput>
 
             <ContainerInput>
@@ -64,13 +69,14 @@ export const Login = () => {
                 placeholder="Password"
                 error={!!errors}
                 data-testid="password"
-                {...register("password", { required: "Informe a password" })}
+                {...register("password", { required: "Informe a senha" })}
               />
-              <ErrorMessage 
-                as="span" 
-                errors={errors} 
+              <ErrorMessage
+                data-testid="password-error-message"
+                as="span"
+                errors={errors}
                 name="password"
-                data-testid="password-error-message" />
+              />
             </ContainerInput>
           </LoginInputsContainer>
 
