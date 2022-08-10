@@ -56,19 +56,23 @@ export const Profile = () => {
       <Header>
         <PhotoContainer
           role="photoContainer"
+          data-testid="avatar"
           src={image.url} />
-        <UsernameContainer role="usernameContainer">
+        <UsernameContainer 
+          role="usernameContainer"
+          data-testid="userName">
           {user.username}
           {/* email@email.com */}
         </UsernameContainer>
 
         <LogoutButton onClick={toLogout}> Logout </LogoutButton>
       </Header>
-      <MainContainer style={{ backgroundColor: 'orange' }}>
+      <MainContainer>
         <SectionContainer>
 
           <ImageContainer>
             <UploadImage
+              data-testid="profileImage"
               src={image.url} />
             <FileInputLabel
               htmlFor="fileInput">Trocar Foto</FileInputLabel>

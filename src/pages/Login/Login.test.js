@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, cleanup } from "@testing-library/react";
 
-import { Login } from "./index.jsx";
+import { Login } from "./index";
 import { AuthUserProvider } from "../../context/AuthUser";
 import userEvent from "@testing-library/user-event";
 

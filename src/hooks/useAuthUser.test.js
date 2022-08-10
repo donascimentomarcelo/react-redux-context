@@ -16,21 +16,16 @@ describe("useUserAuth", () => {
 
   it("should be able to call login function", async () => {
     const { result } = renderHook(() => useAuthUser());
+    const user = {
+      username: "andre",
+        password: "123156",
+    }
 
     act(() => {
-      result.current.login();
-      result.current.user = {
-        username: "andre",
-        password: "123156",
-      };
+      result.current.login(user);
     });
 
-    expect(result.current.login).toBeCalledTimes(1);
-
-    expect(result.current.user).toEqual({
-      username: "andre",
-      password: "123156",
-    });
+    expect(result.current.login).toBeCalledWith(user);
   });
 
   it("should be able to call logout function", async () => {
