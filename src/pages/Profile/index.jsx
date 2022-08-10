@@ -55,8 +55,9 @@ export const Profile = () => {
     <>
       <Header>
         <PhotoContainer
+          role="photoContainer"
           src={image.url} />
-        <UsernameContainer>
+        <UsernameContainer role="usernameContainer">
           {user.username}
           {/* email@email.com */}
         </UsernameContainer>
@@ -69,7 +70,8 @@ export const Profile = () => {
           <ImageContainer>
             <UploadImage
               src={image.url} />
-            <FileInputLabel htmlFor="fileInput">Trocar Foto</FileInputLabel>
+            <FileInputLabel
+              htmlFor="fileInput">Trocar Foto</FileInputLabel>
             <InputImage
               id="fileInput"
               type="file"
@@ -78,7 +80,7 @@ export const Profile = () => {
 
           <ProfileForm onSubmit={handleSubmit(onSubmit)}>
 
-            <ProfileFormTitle>Editar Perfil</ProfileFormTitle>
+            <ProfileFormTitle role="profileEdit">Editar Perfil</ProfileFormTitle>
 
             <ProfileInputsContainer>
               <ContainerInput>
@@ -89,7 +91,7 @@ export const Profile = () => {
                   placeholder="Username"
                   error={!!errors}
                   data-testid="username"
-                  {...register("username", { required: "Informe o username" })}
+                  {...register("username", { required: "Informe o usuário" })}
                 />
                 <ErrorMessage as="span" errors={errors} name="username" />
               </ContainerInput>
@@ -102,7 +104,7 @@ export const Profile = () => {
                   placeholder="Password"
                   error={!!errors}
                   data-testid="password"
-                  {...register("password", { required: "Informe a password" })}
+                  {...register("password", { required: "Informe a senha" })}
                 />
                 <ErrorMessage as="span" errors={errors} name="password" />
               </ContainerInput>
