@@ -55,19 +55,22 @@ export const Profile = () => {
     <>
       <Header>
         <PhotoContainer
+        data-testid="avatar"
           src={image.url} />
-        <UsernameContainer>
+        <UsernameContainer
+        data-testid="userName">
           {user.username}
           {/* email@email.com */}
         </UsernameContainer>
 
         <LogoutButton onClick={toLogout}> Logout </LogoutButton>
       </Header>
-      <MainContainer style={{ backgroundColor: 'orange' }}>
+      <MainContainer>
         <SectionContainer>
 
           <ImageContainer>
             <UploadImage
+              data-testid="profileImage"
               src={image.url} />
             <FileInputLabel htmlFor="fileInput">Trocar Foto</FileInputLabel>
             <InputImage
@@ -89,7 +92,7 @@ export const Profile = () => {
                   placeholder="Username"
                   error={!!errors}
                   data-testid="username"
-                  {...register("username", { required: "Informe o username" })}
+                  {...register("username", { required: "Informe um nome de usuário" })}
                 />
                 <ErrorMessage as="span" errors={errors} name="username" />
               </ContainerInput>
@@ -102,7 +105,7 @@ export const Profile = () => {
                   placeholder="Password"
                   error={!!errors}
                   data-testid="password"
-                  {...register("password", { required: "Informe a password" })}
+                  {...register("password", { required: "Informe uma senha" })}
                 />
                 <ErrorMessage as="span" errors={errors} name="password" />
               </ContainerInput>
