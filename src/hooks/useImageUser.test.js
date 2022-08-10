@@ -15,7 +15,7 @@ const mockUpdateImage = jest.fn();
 describe("useImageUser", () => {
   afterEach(cleanup);
 
-  it("should be render a image user", () => {
+  it("should be return a default image", () => {
     const { result } = renderHook(() => useImageUser());
     const { image } = result.current;
     expect(image).toEqual(mockImageUser);
@@ -24,12 +24,19 @@ describe("useImageUser", () => {
   it("should be update image user", () => {
     const { result } = renderHook(() => useImageUser());
     const { updateImage } = result.current;
-    
+
+    mockUpdateImage.mockImplementation((url) => {
+      mockImageUser.url = url;
+    });
+
+    const anotherImage = "/another-image.png";
+
     act(() => {
-      updateImage(mockImageUser);
+      updateImage(anotherImage);
     });
 
     expect(mockUpdateImage).toHaveBeenCalledTimes(1);
-    expect(mockUpdateImage).toHaveBeenCalledWith(mockImageUser);
-  })
+    expect(mockUpdateImage).toHaveBeenCalledWith(anotherImage);
+    expect(result.current.image).toEqual({ url: anotherImage });
+  });
 });

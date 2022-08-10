@@ -13,31 +13,36 @@ const mockLogin = jest.fn();
 const mockLogout = jest.fn();
 
 describe("useUserAuth", () => {
-
   it("should be able to call login function", async () => {
     const { result } = renderHook(() => useAuthUser());
-    const user = {
-      username: "andre",
-        password: "123156",
-    }
+    const mockUser = {
+      username: "username",
+      password: "123156",
+    };
 
-    act(() => {
-      result.current.login(user);
+    mockLogin.mockImplementation((user) => {
+      result.current.user = user;
     });
 
-    expect(result.current.login).toBeCalledWith(user);
+    act(() => {
+      result.current.login(mockUser);
+    });
+
+    expect(result.current.login).toBeCalledWith(mockUser);
+    expect(result.current.user).toEqual(mockUser);
   });
 
   it("should be able to call logout function", async () => {
     const { result } = renderHook(() => useAuthUser());
+    mockLogout.mockImplementation(() => {
+      result.current.user = null;
+    })
 
     act(() => {
       result.current.logout();
-      result.current.user = null;
-    }
-    );
+    });
 
     expect(result.current.logout).toBeCalledTimes(1);
     expect(result.current.user).toEqual(null);
-  })
+  });
 });
