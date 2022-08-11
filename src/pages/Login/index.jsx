@@ -40,7 +40,17 @@ export const Login = () => {
     <MainContainer>
       <SectionContainer>
         <LoginForm onSubmit={handleSubmit(onSubmit)}>
-          <LoginFormTitle>Welcome</LoginFormTitle>
+          <LoginHeroLogo
+            fullscreen
+            src={logo}
+            alt="logo marca com a palavra programmers"
+          />
+
+          <LoginHeroText fullscreen>
+            Let's learn about react, api context vs redux
+          </LoginHeroText>
+
+          <LoginFormTitle mobile>Welcome</LoginFormTitle>
 
           <LoginInputsContainer>
             <ContainerInput>
@@ -84,7 +94,7 @@ export const Login = () => {
         </LoginForm>
       </SectionContainer>
 
-      <SectionContainer backgroundColor="#0693e3">
+      <SectionContainer mobile backgroundColor="#0693e3">
         <LoginHeroContainer>
           <LoginHeroTitle>Learnig React</LoginHeroTitle>
 

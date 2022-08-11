@@ -7,12 +7,21 @@ export const LoginForm = styled.form`
   justify-content: center;
   gap: 2rem;
   width: 70%;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
 `;
 
 export const LoginFormTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: bold;
   align-self: start;
+
+  @media (max-width: 768px) {
+    color: #fff;
+    margin: 0;
+  }
 `;
 
 export const LoginInputsContainer = styled.div`
@@ -77,6 +86,16 @@ export const FormButton = styled.button`
     background-color: #0693e3;
     border-color: #0693e3;
   }
+
+  @media (max-width: 768px) {
+    color: #0693e3;
+    background-color: #fff;
+
+    :hover {
+      color: #0693e3;
+      background-color: #fff;
+    }
+  }
 `;
 
 export const LoginHeroContainer = styled.div`
@@ -99,10 +118,29 @@ export const LoginHeroLogo = styled.img`
   height: 70px;
   width: auto;
   resize: cover;
+
+  @media (min-width: 769px) {
+    display: ${({ fullscreen }) => fullscreen && "none"};
+  }
+  
+  @media (max-width: 768px) {
+    align-self: start;
+  }
 `;
 
 export const LoginHeroText = styled.p`
   color: #fff;
   font-size: 1.5rem;
   width: 250px;
+
+  @media (min-width: 769px) {
+    display: ${({ fullscreen }) => fullscreen && "none"};
+  }
+
+  @media (max-width: 768px) {
+    margin: 0;
+    font-size: 0.85rem;
+    width: 180px;
+    align-self: start;
+  }
 `;
