@@ -1,3 +1,4 @@
+import { waitFor } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useAuthUser } from "./useAuthUser.js";
 
@@ -28,15 +29,20 @@ describe("useUserAuth", () => {
       result.current.login(mockUser);
     });
 
-    expect(result.current.login).toBeCalledWith(mockUser);
-    expect(result.current.user).toEqual(mockUser);
+    await waitFor(() => {
+      expect(result.current.login).toBeCalledWith(mockUser);
+    });
+
+    await waitFor(() => {
+      expect(result.current.user).toEqual(mockUser);
+    });
   });
 
   it("should be able to call logout function", async () => {
     const { result } = renderHook(() => useAuthUser());
     mockLogout.mockImplementation(() => {
       result.current.user = null;
-    })
+    });
 
     act(() => {
       result.current.logout();
