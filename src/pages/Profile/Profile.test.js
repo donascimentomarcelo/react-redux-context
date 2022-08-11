@@ -1,100 +1,120 @@
-import { render, cleanup, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { Profile } from ".";
-import { AuthUserProvider } from "../../context/AuthUser";
-import { ImageUserProvider } from "../../context/ImageUser";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { Profile } from './index';
+import { ImageUserProvider } from '../../context/ImageUser';
+import { AuthUserProvider } from '../../context/AuthUser';
+import userEvent from '@testing-library/user-event';
 
-const ProfileWrapper = () => {
-  return (
-    <AuthUserProvider>
-      <ImageUserProvider>
-        <Profile />
-      </ImageUserProvider>
-    </AuthUserProvider>
-  );
-};
+jest.mock("./../../hooks/useImageUser", () => ({
+    useImageUser: () => ({
+        image: {
+            url: 'c://path'
+        },
+        updateImage: jest.fn(),
+    }),
+}));
 
-describe("Profile", () => {
-  afterEach(cleanup);
-  it("should render a image user", () => {
-    render(<ProfileWrapper />);
+jest.mock("../../hooks/useAuthUser", () => ({
+    useAuthUser: () => ({
+        user: {
+            username: 'example@email.com'
+        },
+        logout: jest.fn(),
+    }),
+}));
 
-    const image = screen.getByTestId("avatar");
-    expect(image).toBeInTheDocument();
-  });
+describe("Profile Form", () => {
 
-  it("should render a name user", () => {
-    render(<ProfileWrapper />);
+    it("should validate title form", () => {
+        render(<Profile />, { wrapper: ImageUserProvider });
 
-    const userName = screen.getByTestId("userName");
-    expect(userName).toBeInTheDocument();
-  });
+        const formTitle = screen.getByRole("profileEdit");
+        expect(formTitle).toBeInTheDocument();
+        expect(formTitle.firstChild.data).toEqual('Editar Perfil');
+    });
 
-  it("should render a button to logout", () => {
-    render(<ProfileWrapper />);
+    it("should validate title username", () => {
+        render(<Profile />, { wrapper: AuthUserProvider });
 
-    const button = screen.getByText("Logout");
-    expect(button).toBeInTheDocument();
-  });
+        const usernameContainer = screen.getByRole("usernameContainer");
+        expect(usernameContainer).toBeInTheDocument();
+        expect(usernameContainer.firstChild.data).toEqual('example@email.com');
+    });
 
-  it("should render a profile image", () => {
-    render(<ProfileWrapper />);
+    it("should validate empty username", () => {
+        render(<Profile />, { wrapper: AuthUserProvider });
+        const username = "fake"
+        const userInput = screen.getByPlaceholderText("Username");
 
-    const profileImage = screen.getByTestId("profileImage");
-    expect(profileImage).toBeInTheDocument();
-  });
+        userEvent.clear(userInput)
+        userEvent.type(userInput, username);
 
-  it("should render a label input to change profile image", () => {
-    render(<ProfileWrapper />);
+        expect(userInput.value).toBe(username);
+    });
 
-    const label = screen.getByText("Trocar Foto");
-    expect(label).toBeInTheDocument();
-  });
+    it("should validate empty password", () => {
+        render(<Profile />, { wrapper: AuthUserProvider });
+        const password = "p@ss"
+        const passwordInput = screen.getByPlaceholderText("Password");
 
-  it("should render a input to change user name", () => {
-    render(<ProfileWrapper />);
+        userEvent.type(passwordInput, password);
 
-    const input = screen.getByPlaceholderText("Username");
-    expect(input).toBeInTheDocument();
-  });
+        expect(passwordInput.value).toBe(password);
+    });
 
-  it("should render a input to change password", () => {
-    render(<ProfileWrapper />);
+    it("should have the save button", () => {
+        render(<Profile />, { wrapper: AuthUserProvider });
+        expect(screen.getByText("Salvar")).toBeInTheDocument();
+    });
 
-    const input = screen.getByPlaceholderText("Password");
-    expect(input).toBeInTheDocument();
-  });
+    it("should have the logout button", () => {
+        render(<Profile />, { wrapper: AuthUserProvider });
+        expect(screen.getByText("Logout")).toBeInTheDocument();
+    });
 
-  it("should render a button to submit changes", () => {
-    render(<ProfileWrapper />);
+    it("should have the image field", () => {
+        render(<Profile />, { wrapper: ImageUserProvider });
 
-    const button = screen.getByText("Salvar");
-    expect(button).toBeInTheDocument();
-  });
+        const photoContainer = screen.getByRole("photoContainer");
+        expect(photoContainer).toBeInTheDocument();
+        expect(photoContainer.src).toEqual('c://path');
+    });
 
-  it("shold render a error message when user name is empty", async () => {
-    render(<ProfileWrapper />);
+    it("should upload image", () => {
+        render(<Profile />, { wrapper: ImageUserProvider });
+        global.URL.createObjectURL = jest.fn();
 
-    const input = screen.getByPlaceholderText("Username");
-    const button = screen.getByText("Salvar");
+        const changePhoto = screen.getByLabelText("Trocar Foto");
+        const file = new File(["(⌐□_□)"], "myPicture.png", { type: "image/png" });
+        userEvent.upload(changePhoto, file);
+        expect(global.URL.createObjectURL).toHaveBeenCalled();
+    });
 
-    userEvent.type(input, "");
-    userEvent.click(button);
+    it("should not upload image", () => {
+        render(<Profile />, { wrapper: ImageUserProvider });
+        global.URL.createObjectURL = jest.fn();
 
-    const error = await screen.findByText("Informe um nome de usuário");
-    expect(error).toBeInTheDocument();
-  });
+        const changePhoto = screen.getByLabelText("Trocar Foto");
+        userEvent.upload(changePhoto, null);
+        expect(global.URL.createObjectURL).not.toHaveBeenCalled();
+    });
+});
 
-  it("shold render a error message when password is empty", async () => {
-    render(<ProfileWrapper />);
+describe("Form Validations", () => {
 
-    const input = screen.getByPlaceholderText("Password");
-    const button = screen.getByText("Salvar");
 
-    userEvent.type(input, "");
-    userEvent.click(button);
+    it("should validate empty fields", async () => {
+        render(<Profile />, { wrapper: AuthUserProvider });
+        const userInput = screen.getByPlaceholderText("Username");
+        userEvent.clear(userInput)
 
-    const error = await screen.findByText("Informe uma senha");
-    expect(error).toBeInTheDocument();
-  });
+        const buttonElement = screen.getByText("Salvar");
+
+        userEvent.click(buttonElement);
+
+        const userNameMessageError = await screen.findByText("Informe o usuário");
+        const passwordMessageError = await screen.findByText("Informe a senha");
+        expect(userNameMessageError).toBeInTheDocument();
+        expect(passwordMessageError).toBeInTheDocument();
+    });
 });

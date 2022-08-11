@@ -10,7 +10,7 @@ jest.mock("./useAuthUser.js", () => ({
   }),
 }));
 
-const mockLogin = jest.fn();
+const mockLogin = jest.fn((user) => user);
 const mockLogout = jest.fn();
 
 describe("useUserAuth", () => {

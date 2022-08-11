@@ -55,10 +55,12 @@ export const Profile = () => {
     <>
       <Header>
         <PhotoContainer
-        data-testid="avatar"
+          role="photoContainer"
+          data-testid="avatar"
           src={image.url} />
-        <UsernameContainer
-        data-testid="userName">
+        <UsernameContainer 
+          role="usernameContainer"
+          data-testid="userName">
           {user.username}
           {/* email@email.com */}
         </UsernameContainer>
@@ -72,7 +74,8 @@ export const Profile = () => {
             <UploadImage
               data-testid="profileImage"
               src={image.url} />
-            <FileInputLabel htmlFor="fileInput">Trocar Foto</FileInputLabel>
+            <FileInputLabel
+              htmlFor="fileInput">Trocar Foto</FileInputLabel>
             <InputImage
               id="fileInput"
               type="file"
@@ -81,7 +84,7 @@ export const Profile = () => {
 
           <ProfileForm onSubmit={handleSubmit(onSubmit)}>
 
-            <ProfileFormTitle>Editar Perfil</ProfileFormTitle>
+            <ProfileFormTitle role="profileEdit">Editar Perfil</ProfileFormTitle>
 
             <ProfileInputsContainer>
               <ContainerInput>
@@ -92,7 +95,7 @@ export const Profile = () => {
                   placeholder="Username"
                   error={!!errors}
                   data-testid="username"
-                  {...register("username", { required: "Informe um nome de usuário" })}
+                  {...register("username", { required: "Informe o usuário" })}
                 />
                 <ErrorMessage as="span" errors={errors} name="username" />
               </ContainerInput>
@@ -105,7 +108,7 @@ export const Profile = () => {
                   placeholder="Password"
                   error={!!errors}
                   data-testid="password"
-                  {...register("password", { required: "Informe uma senha" })}
+                  {...register("password", { required: "Informe a senha" })}
                 />
                 <ErrorMessage as="span" errors={errors} name="password" />
               </ContainerInput>
