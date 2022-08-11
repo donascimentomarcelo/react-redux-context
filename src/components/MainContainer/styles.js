@@ -10,7 +10,7 @@ export const Container = styled.div`
   margin: 0 auto;
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    background-color: #0693e3;
+    flex-direction: ${({ mobile }) => mobile && "column"};
+    background-color: ${({ mobile }) => mobile && "#0693e3"};
   }
 `;

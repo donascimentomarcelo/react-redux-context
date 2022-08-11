@@ -1,5 +1,25 @@
 import styled from "styled-components";
 
+export const ProfileContent = styled.div`
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 2rem;
+  padding: 2rem 0;
+  margin-top: 4rem;
+
+  @media (max-width: 768px) {
+    justify-content: ${({ mobile }) => mobile && "start"};
+    gap: ${({ mobile }) => mobile && "2rem"};
+
+  }
+`;
+
 export const ProfileForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -12,7 +32,8 @@ export const ProfileForm = styled.form`
 export const ProfileFormTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: bold;
-  align-self: start;
+  align-self: center;
+  margin: 0;
 `;
 
 export const ProfileInputsContainer = styled.div`
@@ -25,7 +46,7 @@ export const ProfileInputsContainer = styled.div`
 `;
 
 export const ContainerInput = styled.div`
-display: flex;
+  display: flex;
   flex-direction: column;
   align-self: flex-start;
   height: 80px;
@@ -33,7 +54,8 @@ display: flex;
 
   span {
     color: #f00;
-  }`;
+  }
+`;
 
 export const Input = styled.input`
   height: 3rem;
@@ -81,9 +103,10 @@ export const FormButton = styled.button`
 export const Header = styled.header`
   background-color: #0693e3;
   color: #000;
-  height: 75px;
+  max-height: 75px;
   padding: 10px;
   display: flex;
+  margin-bottom: 0;
 `;
 
 export const UsernameContainer = styled.div`
@@ -120,7 +143,6 @@ export const InputImage = styled.input`
 `;
 
 export const FileInputLabel = styled.label`
-
   display: inline-block;
   background: linear-gradient(top, #f9f9f9, #e3e3e3);
   padding: 5px 8px;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { useAuthUser } from './../../hooks/useAuthUser';
+import { useAuthUser } from "./../../hooks/useAuthUser";
 import { useImageUser } from "./../../hooks/useImageUser";
 import { MainContainer } from "../../components/MainContainer";
 import { SectionContainer } from "../../components/SectionContainer";
@@ -21,6 +21,7 @@ import {
   ImageContainer,
   InputImage,
   FileInputLabel,
+  ProfileContent
 } from "./styles";
 
 export const Profile = () => {
@@ -38,17 +39,17 @@ export const Profile = () => {
   } = useForm();
 
   useEffect(() => {
-    setValue('username', user.username);
+    setValue("username", user.username);
   }, [user]);
 
   const onSubmit = (user) => login(user);
 
   const toLogout = () => logout();
 
-  const handleFile = e => {
+  const handleFile = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    updateImage({ url: URL.createObjectURL(file) })
+    updateImage({ url: URL.createObjectURL(file) });
   };
 
   return (
@@ -57,10 +58,9 @@ export const Profile = () => {
         <PhotoContainer
           role="photoContainer"
           data-testid="avatar"
-          src={image.url} />
-        <UsernameContainer
-          role="usernameContainer"
-          data-testid="userName">
+          src={image.url}
+        />
+        <UsernameContainer role="usernameContainer" data-testid="userName">
           {user.username}
           {/* email@email.com */}
         </UsernameContainer>
@@ -68,24 +68,16 @@ export const Profile = () => {
         <LogoutButton onClick={toLogout}> Logout </LogoutButton>
       </Header>
       <MainContainer>
-        <SectionContainer>
+        <ProfileContent backgroundColor="#fff">
+          <ProfileFormTitle role="profileEdit">Editar Perfil</ProfileFormTitle>
 
           <ImageContainer>
-            <UploadImage
-              data-testid="profileImage"
-              src={image.url} />
-            <FileInputLabel
-              htmlFor="fileInput">Trocar Foto</FileInputLabel>
-            <InputImage
-              id="fileInput"
-              type="file"
-              onChange={handleFile} />
+            <UploadImage data-testid="profileImage" src={image.url} />
+            <FileInputLabel htmlFor="fileInput">Trocar Foto</FileInputLabel>
+            <InputImage id="fileInput" type="file" onChange={handleFile} />
           </ImageContainer>
 
           <ProfileForm onSubmit={handleSubmit(onSubmit)}>
-
-            <ProfileFormTitle role="profileEdit">Editar Perfil</ProfileFormTitle>
-
             <ProfileInputsContainer>
               <ContainerInput>
                 <Input
@@ -114,9 +106,9 @@ export const Profile = () => {
               </ContainerInput>
             </ProfileInputsContainer>
 
-            <FormButton >Salvar</FormButton>
+            <FormButton>Salvar</FormButton>
           </ProfileForm>
-        </SectionContainer>
+        </ProfileContent>
       </MainContainer>
     </>
   );
