@@ -4,15 +4,19 @@ import { Profile } from './index';
 import { ImageUserProvider } from '../../context/ImageUser';
 import { AuthUserProvider } from '../../context/AuthUser';
 import userEvent from '@testing-library/user-event';
+import { act, renderHook } from '@testing-library/react-hooks';
+import { useImageUser } from '../../hooks/useImageUser';
 
 jest.mock("./../../hooks/useImageUser", () => ({
     useImageUser: () => ({
         image: {
             url: 'c://path'
         },
-        updateImage: jest.fn(),
+        updateImage: mockUpdateImage,
     }),
 }));
+
+const mockUpdateImage = jest.fn((url) => url);
 
 jest.mock("../../hooks/useAuthUser", () => ({
     useAuthUser: () => ({
@@ -82,21 +86,41 @@ describe("Profile Form", () => {
 
     it("should upload image", () => {
         render(<Profile />, { wrapper: ImageUserProvider });
+        const { result } = renderHook(() => useImageUser());
         global.URL.createObjectURL = jest.fn();
 
         const changePhoto = screen.getByLabelText("Trocar Foto");
         const file = new File(["(⌐□_□)"], "myPicture.png", { type: "image/png" });
+
+        act(() => {
+            mockUpdateImage.mockImplementation(() => {
+                const urlTest = { url: 'c://path' };
+                result.current.image = urlTest;
+            });
+        });
+
         userEvent.upload(changePhoto, file);
-        expect(global.URL.createObjectURL).toHaveBeenCalled();
+
+        expect(result.current.image).toEqual({ url: 'c://path' });
+        expect(result.current.updateImage).toHaveBeenCalled();
     });
 
     it("should not upload image", () => {
         render(<Profile />, { wrapper: ImageUserProvider });
-        global.URL.createObjectURL = jest.fn();
+        const { result } = renderHook(() => useImageUser());
+
+        
+        act(() => {
+            mockUpdateImage.mockImplementation(() => {
+                const urlTest = { url: 'c://path' };
+                result.current.image = urlTest;
+            });
+        });
 
         const changePhoto = screen.getByLabelText("Trocar Foto");
         userEvent.upload(changePhoto, null);
-        expect(global.URL.createObjectURL).not.toHaveBeenCalled();
+        expect(result.current.image).toEqual({ url: 'c://path' });
+        expect(result.current.updateImage).not.toHaveBeenCalled();
     });
 });
 
