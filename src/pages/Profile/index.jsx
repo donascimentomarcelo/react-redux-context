@@ -46,8 +46,8 @@ export const Profile = () => {
   const toLogout = () => logout();
 
   const handleFile = e => {
-    if (!e.target.files[0]) return;
     const file = e.target.files[0];
+    if (!file) return;
     updateImage({ url: URL.createObjectURL(file) })
   };
 
@@ -58,7 +58,7 @@ export const Profile = () => {
           role="photoContainer"
           data-testid="avatar"
           src={image.url} />
-        <UsernameContainer 
+        <UsernameContainer
           role="usernameContainer"
           data-testid="userName">
           {user.username}
