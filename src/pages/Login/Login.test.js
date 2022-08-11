@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen, cleanup, waitFor } from "@testing-library/react";
 
 import { Login } from "./index";
 import { AuthUserProvider } from "../../context/AuthUser";
@@ -67,7 +67,7 @@ describe("Login", () => {
     expect(passwordInput.value).toBe(value);
   });
 
-  it("should be render a button", () => {
+  it("should be render a button", async () => {
     render(<Login />, { wrapper: AuthUserProvider });
 
     const buttonEntrar = screen.getByText("Entrar");
@@ -80,13 +80,18 @@ describe("Login", () => {
 
     userEvent.click(buttonElement);
 
-    const userNameMessageError = await screen.findByText("Informe o usuário");
-    const passwordMessageError = await screen.findByText("Informe o usuário");
-    expect(userNameMessageError).toBeInTheDocument();
-    expect(passwordMessageError).toBeInTheDocument();
+    await waitFor(() => {
+      const userNameMessageError = screen.getByText("Informe o usuário");
+      expect(userNameMessageError).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      const passwordMessageError = screen.getByText("Informe o usuário");
+      expect(passwordMessageError).toBeInTheDocument();
+    });
   });
 
-  it("should be error message not visible", () => {
+  it("should be error message not visible", async () => {
     render(<Login />, { wrapper: AuthUserProvider });
     const userNameValue = "fakseUsername";
     const passwordValue = "faksePassword";
@@ -99,9 +104,14 @@ describe("Login", () => {
 
     userEvent.click(buttonElement);
 
-    const messageErrorUsername = screen.queryByText("Informe o usuário");
-    const messageErrorPassword = screen.queryByText("Informe a senha");
-    expect(messageErrorUsername).not.toBeInTheDocument();
-    expect(messageErrorPassword).not.toBeInTheDocument();
+    await waitFor(() => {
+      const messageErrorUsername = screen.queryByText("Informe o usuário");
+      expect(messageErrorUsername).not.toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      const messageErrorPassword = screen.queryByText("Informe a senha");
+      expect(messageErrorPassword).not.toBeInTheDocument();
+    });
   });
 });
