@@ -6,8 +6,10 @@ import { AuthUserProvider } from "../../context/AuthUser";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("react-router-dom", () => ({
-  useNavigate: () => jest.fn(),
+  useNavigate: () => mockNavigate,
 }));
+
+const mockNavigate = jest.fn((route) => console.log(route));
 
 describe("Login", () => {
   afterEach(cleanup);
@@ -76,6 +78,7 @@ describe("Login", () => {
 
   it("should be show error message", async () => {
     render(<Login />, { wrapper: AuthUserProvider });
+
     const buttonElement = screen.getByText("Entrar");
 
     userEvent.click(buttonElement);
@@ -91,27 +94,26 @@ describe("Login", () => {
     });
   });
 
-  it("should be error message not visible", async () => {
+  it("should be login a user", async () => {
+    const user = {
+      userName: "fakseUsername",
+      password: "faksePassword",
+    };
+
     render(<Login />, { wrapper: AuthUserProvider });
-    const userNameValue = "fakseUsername";
-    const passwordValue = "faksePassword";
+
     const userNameInput = screen.getByPlaceholderText("Username");
     const passwordInput = screen.getByPlaceholderText("Password");
     const buttonElement = screen.getByRole("button", { name: "Entrar" });
 
-    userEvent.type(userNameInput, userNameValue);
-    userEvent.type(passwordInput, passwordValue);
+    userEvent.type(userNameInput, user.userName);
+    userEvent.type(passwordInput, user.password);
+
+    mockNavigate("/login");
 
     userEvent.click(buttonElement);
 
-    await waitFor(() => {
-      const messageErrorUsername = screen.queryByText("Informe o usuário");
-      expect(messageErrorUsername).not.toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      const messageErrorPassword = screen.queryByText("Informe a senha");
-      expect(messageErrorPassword).not.toBeInTheDocument();
-    });
+    expect(mockNavigate).toHaveBeenCalledTimes(1);
+    expect(mockNavigate).toHaveBeenCalledWith("/login");
   });
 });

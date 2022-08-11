@@ -21,8 +21,10 @@ describe("useUserAuth", () => {
       password: "123156",
     };
 
-    mockLogin.mockImplementation((user) => {
-      result.current.user = user;
+    act(() => {
+      mockLogin.mockImplementation((user) => {
+        result.current.user = user;
+      });
     });
 
     act(() => {
