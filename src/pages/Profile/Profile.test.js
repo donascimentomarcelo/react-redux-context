@@ -87,6 +87,16 @@ describe("Profile Form", () => {
         const changePhoto = screen.getByLabelText("Trocar Foto");
         const file = new File(["(⌐□_□)"], "myPicture.png", { type: "image/png" });
         userEvent.upload(changePhoto, file);
+        expect(global.URL.createObjectURL).toHaveBeenCalled();
+    });
+
+    it("should not upload image", () => {
+        render(<Profile />, { wrapper: ImageUserProvider });
+        global.URL.createObjectURL = jest.fn();
+
+        const changePhoto = screen.getByLabelText("Trocar Foto");
+        userEvent.upload(changePhoto, null);
+        expect(global.URL.createObjectURL).not.toHaveBeenCalled();
     });
 });
 
