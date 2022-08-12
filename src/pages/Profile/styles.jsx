@@ -11,13 +11,17 @@ export const ProfileContent = styled.div`
   justify-content: start;
   gap: 2rem;
   padding: 2rem 0;
-  margin-top: 4rem;
 
   @media (max-width: 768px) {
-    justify-content: ${({ mobile }) => mobile && "start"};
-    gap: ${({ mobile }) => mobile && "2rem"};
-
+    justify-content: "start";
+    gap: 1rem;
+    padding: 1rem 0;
   }
+`;
+
+export const HeaderAvatarContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const ProfileForm = styled.form`
@@ -26,7 +30,7 @@ export const ProfileForm = styled.form`
   align-items: flex-end;
   justify-content: center;
   gap: 2rem;
-  width: 70%;
+  width: 350px;
 `;
 
 export const ProfileFormTitle = styled.h1`
@@ -77,59 +81,34 @@ export const Input = styled.input`
   }
 `;
 
-export const FormButton = styled.button`
-  height: 3rem;
-  width: 8rem;
-  cursor: pointer;
-  outline: 0;
-  display: inline-block;
-  text-align: center;
-  background-color: transparent;
-  border: 1px solid transparent;
-  padding: 6px 12px;
-  font-size: 1rem;
-  border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  color: #0693e3;
-  border-color: #0693e3;
-  :hover {
-    color: #fff;
-    background-color: #0693e3;
-    border-color: #0693e3;
-  }
-`;
-
 export const Header = styled.header`
   background-color: #0693e3;
   color: #000;
-  max-height: 75px;
-  padding: 10px;
   display: flex;
-  margin-bottom: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  max-height: 75px;
+  width: 100%;
 `;
 
-export const UsernameContainer = styled.div`
-  padding: 25px;
-  font-weight: bold;
-  align-self: start;
+export const HeaderContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 935px;
+  padding: 0 2rem;
+`;
+
+export const UsernameContainer = styled.h2`
+  font-size: 1.25rem;
 `;
 
 export const PhotoContainer = styled.img`
-  display: inline-block;
-  width: auto;
-  box-sizing: border-box;
   border-radius: 50%;
-  margin-left: 18%;
-  padding: 10px;
-  height: 9vh;
-`;
-
-export const LogoutButton = styled.button`
-  margin-left: auto;
-  order: 2;
-  height: 30px;
-  margin-top: 25px;
+  height: 7vh;
+  margin-right: 1rem;
 `;
 
 export const ImageContainer = styled.div`

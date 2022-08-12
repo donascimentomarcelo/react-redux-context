@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SectionContainer = styled.section`
   background-color: ${({ backgroundColor }) => backgroundColor};
-  height: 100%;
+  height: 100vh;
   width: 100%;
 
   display: flex;

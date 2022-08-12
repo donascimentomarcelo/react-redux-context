@@ -13,12 +13,12 @@ import {
   LoginInputsContainer,
   ContainerInput,
   Input,
-  FormButton,
   LoginHeroContainer,
   LoginHeroTitle,
   LoginHeroLogo,
   LoginHeroText,
 } from "./styles";
+import { CustomButton } from "../../components/CustomButton/CustomButton.js";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -90,7 +90,7 @@ export const Login = () => {
             </ContainerInput>
           </LoginInputsContainer>
 
-          <FormButton type="submit">Entrar</FormButton>
+          <CustomButton type="submit">Entrar</CustomButton>
         </LoginForm>
       </SectionContainer>
 

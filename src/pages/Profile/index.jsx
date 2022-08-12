@@ -4,7 +4,6 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useAuthUser } from "./../../hooks/useAuthUser";
 import { useImageUser } from "./../../hooks/useImageUser";
 import { MainContainer } from "../../components/MainContainer";
-import { SectionContainer } from "../../components/SectionContainer";
 
 import {
   ProfileForm,
@@ -12,17 +11,18 @@ import {
   ProfileInputsContainer,
   ContainerInput,
   Input,
-  FormButton,
   Header,
+  HeaderContent,
   UsernameContainer,
   PhotoContainer,
-  LogoutButton,
   UploadImage,
   ImageContainer,
   InputImage,
   FileInputLabel,
-  ProfileContent
+  ProfileContent,
+  HeaderAvatarContainer,
 } from "./styles";
+import { CustomButton } from "../../components/CustomButton/CustomButton";
 
 export const Profile = () => {
   const { logout, login, user } = useAuthUser();
@@ -55,17 +55,22 @@ export const Profile = () => {
   return (
     <>
       <Header>
-        <PhotoContainer
-          role="photoContainer"
-          data-testid="avatar"
-          src={image.url}
-        />
-        <UsernameContainer role="usernameContainer" data-testid="userName">
-          {user.username}
-          {/* email@email.com */}
-        </UsernameContainer>
+        <HeaderContent>
+          <HeaderAvatarContainer>
+            <PhotoContainer
+              role="photoContainer"
+              data-testid="avatar"
+              src={image.url}
+            />
+            <UsernameContainer role="usernameContainer" data-testid="userName">
+              {user.username}
+            </UsernameContainer>
+          </HeaderAvatarContainer>
 
-        <LogoutButton onClick={toLogout}> Logout </LogoutButton>
+          <CustomButton invertColors onClick={toLogout}>
+            Logout
+          </CustomButton>
+        </HeaderContent>
       </Header>
       <MainContainer>
         <ProfileContent backgroundColor="#fff">
@@ -106,7 +111,7 @@ export const Profile = () => {
               </ContainerInput>
             </ProfileInputsContainer>
 
-            <FormButton>Salvar</FormButton>
+            <CustomButton>Salvar</CustomButton>
           </ProfileForm>
         </ProfileContent>
       </MainContainer>
